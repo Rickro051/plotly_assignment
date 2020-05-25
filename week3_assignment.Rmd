@@ -1,0 +1,68 @@
+---
+title: "Stock Prices of Companies Working on COVID-19"
+author: "R.L. Rojas"
+date: "5/24/2020"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(plotly)
+library(quantmod)
+```
+
+
+## Loading stock data
+
+Focusing on 3 Companies
+
+- Gilead Sciences (GILD)
+- Moderna (MRNA)
+- Sorrento Therapeutics (SRNE)
+
+```{r, echo=FALSE, message=FALSE, include=FALSE}
+options("getSymbols.warning4.0"=FALSE)
+options("getSymbols.yahoo.warning"=FALSE)
+
+tickers = c("GILD", "MRNA", "SRNE")
+
+loadSymbols(tickers,
+           from = "2020-03-01",
+           to = "2020-05-22")
+```
+
+## Gilead Stock Performance
+
+```{r, echo=FALSE}
+GILD = data.frame(Date = index(GILD), coredata(GILD))
+plot_ly(GILD, x = ~Date, type="candlestick",
+          open = ~GILD.Open, close = ~GILD.Close,
+          high = ~GILD.High, low = ~GILD.Low) %>%
+  
+layout(., yaxis = list(tickprefix= " $"))
+
+```
+
+## Moderna Stock Performance 
+
+```{r, echo = FALSE}
+MRNA = data.frame(Date = index(MRNA), coredata(MRNA))
+plot_ly(MRNA, x = ~Date, type="candlestick",
+          open = ~MRNA.Open, close = ~MRNA.Close,
+          high = ~MRNA.High, low = ~MRNA.Low) %>%
+  
+layout(., yaxis = list(tickprefix= " $"))
+
+```
+
+## Sorrento Therapeutics Stock Performance
+
+```{r, echo = FALSE}
+SRNE = data.frame(Date = index(SRNE), coredata(SRNE))
+plot_ly(SRNE, x = ~Date, type="candlestick",
+          open = ~SRNE.Open, close = ~SRNE.Close,
+          high = ~SRNE.High, low = ~SRNE.Low) %>%
+  
+layout(., yaxis = list(tickprefix= " $"))
+
+```
